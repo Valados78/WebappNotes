@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NoteLib</title>
+  <link rel="stylesheet" href="/pages/style/notes.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>NoteLib</h1>
+    </header>
+
+    <form class="note-form" id="noteForm">
+      <input
+        type="text"
+        class="note-input"
+        id="noteInput"
+        placeholder="Напишите что-нибудь..."
+        autocomplete="off"
+        required
+      />
+      <button type="submit" class="add-btn">Добавить</button>
+    </form>
+
+    <div class="notes-list" id="notesList">
+      
+      <div class="empty-state" id="emptyState">Пока нет заметок</div>
+    </div>
+  </div>
+</body>
+</html>
