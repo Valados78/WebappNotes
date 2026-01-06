@@ -2,10 +2,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    text-decoration: none;
 }
 
 .page {
-    background-color: brown;
+    background-color: #333;
 }
 
 .header {
@@ -14,35 +15,41 @@
     text-align: center;
 }
 
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  
+    align-items: center;      
+    height: 100vh;            
+    min-height: 100vh;
+}
+
 .buttons {
-    margin: 15%;
+    margin: 2%;
+    width: 30%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    
 }
 
 #notesButton {
     background-color: green;
-    border-radius: 20%;
+    border-radius: 5px;
     margin: 2% 0 2% 0;
-    width: 30%;
     text-align: center;
 }
 
 #alertButton {
     background-color: yellow;
-    border-radius: 20%;
+    border-radius: 5px;
     margin: 2% 0 2% 0;
-    width: 30%;
     text-align: center;
 }
 
 #manageButton {
     background-color: red;
-    border-radius: 20%;
+    border-radius: 5px;
     margin: 2% 0 2% 0;
-    width: 30%;
     text-align: center;
 }
 
