@@ -61,6 +61,8 @@ body {
     background-color: black;
     height: 10%;
     margin-top: 25%;
+    padding: 0;
+    width: 100%;
     text-align: center;
 }
 

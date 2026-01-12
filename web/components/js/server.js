@@ -17,7 +17,7 @@ let notificationsDB = [...notifications];
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'pages')));
 
 
 // почтовый клиент
@@ -28,4 +28,18 @@ const transporter = nodemailer.createTransport({
     user: 'test@example.com',
     pass: 'test123'
   }
+});
+
+
+
+// запуск сервера и логи
+app.listen(PORT, () => {
+  console.log(`Сервер запущен на http://localhost:${PORT}`);
+  console.log('API доступен по адресам:');
+  console.log('  GET    /api/notes');
+  console.log('  POST   /api/notes');
+  console.log('  PUT    /api/notes/:id');
+  console.log('  DELETE /api/notes/:id');
+  console.log('  POST   /api/notifications');
+  console.log('  GET    /api/notifications');
 });

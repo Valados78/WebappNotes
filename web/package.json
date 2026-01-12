@@ -1,10 +1,11 @@
 {
   "name": "web",
   "version": "1.0.0",
-  "description": "",
+  "description": "NoteLib",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node components/js/server.js",
+    "dev": "nodemon components/js/server.js"
   },
   "keywords": [],
   "author": "",
