@@ -9,16 +9,15 @@ const { notes, notifications } = require('./data/database');
 const app = express();
 const PORT = 3000;
 
-// пока сделаю такую имитацию БД, может в конце переделаю что-то
-let notesDB = [...notes];
-let notificationsDB = [...notifications];
-
 // обработка запросов перед путями
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'pages')));
 
+// пока сделаю такую имитацию БД, может в конце переделаю что-то
+let notesDB = [...notes];
+let notificationsDB = [...notifications];
 
 // почтовый клиент
 const transporter = nodemailer.createTransport({
@@ -30,9 +29,15 @@ const transporter = nodemailer.createTransport({
   }
 });
 
+// Маршруты для API
 
 
-// запуск сервера и логи
+// Маршрут для главной страницы
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'pages', 'main.html'));
+});
+
+// Запуск сервера
 app.listen(PORT, () => {
   console.log(`Сервер запущен на http://localhost:${PORT}`);
   console.log('API доступен по адресам:');
