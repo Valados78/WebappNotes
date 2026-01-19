@@ -23,10 +23,53 @@
       />
       <button type="submit" class="add-btn">Добавить</button>
     </form>
-
+    
+    <!-- Модальное окно для создания заметки -->
+    <div id="noteModal" class="modal" style="display: none;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Создать напоминание</h2>
+          <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+          <p><strong>Название:</strong> <span id="modalNoteTitle"></span></p>
+          
+          <div class="form-group">
+            <label for="reminderDate">Дата напоминания:</label>
+            <input type="date" id="reminderDate" class="form-control">
+          </div>
+          
+          <div class="form-group">
+            <label for="reminderTime">Время напоминания:</label>
+            <input type="time" id="reminderTime" class="form-control">
+          </div>
+          
+          <div class="form-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="emailReminder">
+              <span class="checkmark"></span>
+              Напомнить на почту
+            </label>
+          </div>
+          
+          <div class="form-group" id="emailField" style="display: none;">
+            <label for="email">Email:</label>
+            <input type="email" id="email" class="form-control" placeholder="Введите email">
+          </div>
+          
+          <div class="modal-footer">
+            <button id="createNoteBtn" class="btn btn-primary">Создать</button>
+            <button id="cancelBtn" class="btn btn-secondary">Отмена</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
     <div class="notes-list" id="notesList">
       <div class="empty-state" id="emptyState">Пока нет заметок</div>
     </div>
   </div>
 </body>
+<!-- Изменен путь к скрипту -->
+<script src="/app.js"></script>
 </html>
