@@ -224,3 +224,117 @@ border-radius: 4px;
 display: inline-block;
 margin-top: 5px;
 }
+
+.notes-section {
+    margin-top: 40px;
+}
+
+.notes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+/* Стили для плиток заметок */
+.note-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.note-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* Чередующиеся цвета */
+.note-card.color-0 {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.note-card.color-1 {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+}
+
+.note-card.color-2 {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
+}
+
+.note-card.color-3 {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    color: white;
+}
+
+.note-card.color-4 {
+    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    color: white;
+}
+
+.note-card.color-5 {
+    background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+    color: white;
+}
+
+.note-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    word-break: break-word;
+}
+
+.note-datetime {
+    font-size: 14px;
+    opacity: 0.9;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.note-datetime::before {
+    content: "📅";
+    font-size: 14px;
+}
+
+.note-email {
+    font-size: 12px;
+    opacity: 0.8;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.note-email::before {
+    content: "✉️";
+    font-size: 12px;
+}
+
+.note-status {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 12px;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 4px 8px;
+    border-radius: 20px;
+    backdrop-filter: blur(4px);
+}
+
+.note-status.active {
+    background: rgba(76, 175, 80, 0.9);
+}
+
+.note-status.completed {
+    background: rgba(158, 158, 158, 0.9);
+}

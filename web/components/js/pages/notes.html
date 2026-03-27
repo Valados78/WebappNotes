@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>NoteLib</title>
+  <title>NoteLib - Создать заметку</title>
   <link rel="stylesheet" href="style/notes.css">
 </head>
 <body>
   <div class="container">
     <header>
       <h1>NoteLib</h1>
+      <p>Создайте новую заметку</p>
     </header>
 
     <form class="note-form" id="noteForm">
@@ -65,11 +66,13 @@
       </div>
     </div>
     
-    <div class="notes-list" id="notesList">
-      <div class="empty-state" id="emptyState">Пока нет заметок</div>
+    <div class="notes-section">
+      <h2>Все заметки</h2>
+      <div class="notes-grid" id="notesList">
+        <!-- Сами заметки -->
+      </div>
     </div>
   </div>
 </body>
-<!-- Изменен путь к скрипту -->
 <script src="/app.js"></script>
 </html>

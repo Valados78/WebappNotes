@@ -1,5 +1,5 @@
 const API_BASE_URL = 'http://localhost:3000/api';
-
+//
 function setupNoteModal() {
   const noteForm = document.getElementById('noteForm');
   const modal = document.getElementById('noteModal');
@@ -131,6 +131,10 @@ function setupNoteModal() {
           
           document.getElementById('noteForm').reset();
           
+          if (typeof loadNotes === 'function') {
+            loadNotes();
+          }
+          
         } else {
           alert(`Ошибка: ${result.error || 'Неизвестная ошибка'}`);
         }
@@ -142,8 +146,78 @@ function setupNoteModal() {
   }
 }
 
+async function loadNotes() {
+    const notesContainer = document.getElementById('notesList');
+    if (!notesContainer) return;
+    
+    try {
+        notesContainer.innerHTML = '<div class="loading">Загрузка заметок...</div>';
+        
+        const response = await fetch(`${API_BASE_URL}/notes`);
+        const result = await response.json();
+        
+        let notes = [];
+        if (Array.isArray(result)) {
+            notes = result;
+        } else if (result.notes && Array.isArray(result.notes)) {
+            notes = result.notes;
+        }
+        
+        if (notes.length === 0) {
+            notesContainer.innerHTML = '<div class="empty-state">📝 Пока нет заметок. Создайте первую заметку!</div>';
+            return;
+        }
+        
+        notesContainer.innerHTML = notes.map((note, index) => {
+            const colorIndex = index % 6;
+            const statusText = note.status === 'active' ? 'Активна' : 'Завершена';
+            const statusClass = note.status === 'active' ? 'active' : 'completed';
+            const formattedDate = note.date ? formatDate(note.date) : 'Дата не указана';
+            
+            return `
+                <div class="note-card color-${colorIndex}" data-id="${note.id}">
+                    <div class="note-status ${statusClass}">${statusText}</div>
+                    <div class="note-title">${escapeHtml(note.title)}</div>
+                    <div class="note-datetime">
+                        ${formattedDate} ${note.time || ''}
+                    </div>
+                    ${note.emailReminder && note.email ? `
+                        <div class="note-email">
+                            ${escapeHtml(note.email)}
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        }).join('');
+        
+    } catch (error) {
+        console.error('Ошибка при загрузке заметок:', error);
+        notesContainer.innerHTML = '<div class="empty-state">❌ Ошибка при загрузке заметок. Проверьте подключение к серверу.</div>';
+    }
+}
+
+function formatDate(dateString) {
+    if (!dateString) return 'Дата не указана';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('ru-RU', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+    });
+}
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', setupNoteModal);
+  document.addEventListener('DOMContentLoaded', function() {
+    setupNoteModal();
+    loadNotes();
+  });
 } else {
   setupNoteModal();
+  loadNotes();
 }
