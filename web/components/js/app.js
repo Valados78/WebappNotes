@@ -320,4 +320,5 @@ if (document.readyState === 'loading') {
   if (document.getElementById('manageNotesList')) {
       loadManageNotes();
   }
+
 }

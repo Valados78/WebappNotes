@@ -9,8 +9,6 @@ body {
     background-color: #f9f9fb;
     color: #333;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
 }
 
 .page {
@@ -27,14 +25,30 @@ body {
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-.header h1 {
+.home-link {
+    text-decoration: none;
+    display: inline-block;
+}
+
+.home-link h1 {
     font-size: 36px;
     margin-bottom: 10px;
+    color: white;
+    transition: opacity 0.2s;
+}
+
+.home-link:hover h1 {
+    opacity: 0.9;
 }
 
 .header h3 {
     font-weight: 400;
     opacity: 0.9;
+}
+
+.header h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
 }
 
 .content {
