@@ -11,18 +11,14 @@ const PORT = 3000;
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-// статические файлы
 app.use(express.static(path.join(__dirname, 'pages')));
 app.use('/style', express.static(path.join(__dirname, 'pages', 'style')));
 app.use('/app.js', express.static(path.join(__dirname, 'app.js')));
 
-// имитация базы данных
 const { notes, notifications } = require('./data/database');
 let notesDB = [...notes];
 let notificationsDB = [...notifications];
 
-// почтовый клиент (имитация) ПОКА ЧТО ТАК
 const transporter = nodemailer.createTransport({
   host: 'smtp.ethereal.email',
   port: 587,
@@ -32,12 +28,10 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-// маршрут для главной страницы
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'pages', 'main.html'));
 });
 
-// маршрут для других страниц
 app.get('/:page', (req, res) => {
   const page = req.params.page;
   const validPages = ['notes.html', 'notesList.html', 'manage.html', 'main.html'];
@@ -49,7 +43,6 @@ app.get('/:page', (req, res) => {
   }
 });
 
-// API маршруты
 app.post('/api/notes', (req, res) => {
   console.log('Получен запрос на создание заметки:', req.body);
   
@@ -75,7 +68,6 @@ app.post('/api/notes', (req, res) => {
   console.log('Создана новая заметка:', newNote);
   console.log('Всего заметок в базе:', notesDB.length);
 
-  // если включено напоминание на почту
   if (emailReminder && email) {
     const newNotification = {
       id: uuidv4(),
@@ -109,6 +101,31 @@ app.get('/api/notes', (req, res) => {
   });
 });
 
+app.delete('/api/notes/:id', (req, res) => {
+  const noteId = req.params.id;
+  console.log('Запрос на удаление заметки:', noteId);
+  
+  const noteIndex = notesDB.findIndex(note => note.id === noteId);
+  
+  if (noteIndex === -1) {
+    return res.status(404).json({ error: 'Заметка не найдена' });
+  }
+  
+  const deletedNote = notesDB[noteIndex];
+  notesDB.splice(noteIndex, 1);
+  
+  notificationsDB = notificationsDB.filter(notif => notif.noteId !== noteId);
+  
+  console.log('Заметка удалена:', deletedNote.title);
+  console.log('Осталось заметок:', notesDB.length);
+  
+  res.json({
+    success: true,
+    message: 'Заметка успешно удалена',
+    note: deletedNote
+  });
+});
+
 app.get('/api/notifications', (req, res) => {
   res.json({
     success: true,
@@ -117,13 +134,12 @@ app.get('/api/notifications', (req, res) => {
   });
 });
 
-// запуск сервера
 app.listen(PORT, () => {
   console.log(`Сервер запущен на http://localhost:${PORT}`);
   console.log('API доступен по адресам:');
   console.log('  GET    /api/notes');
   console.log('  POST   /api/notes');
+  console.log('  DELETE /api/notes/:id');
   console.log('  GET    /api/notifications');
   console.log('\nОткройте в браузере: http://localhost:3000');
-  console.log('Для создания заметки: http://localhost:3000/notes.html');
 });

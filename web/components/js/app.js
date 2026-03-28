@@ -1,5 +1,5 @@
 const API_BASE_URL = 'http://localhost:3000/api';
-//
+
 function setupNoteModal() {
   const noteForm = document.getElementById('noteForm');
   const modal = document.getElementById('noteModal');
@@ -135,6 +135,10 @@ function setupNoteModal() {
             loadNotes();
           }
           
+          if (typeof loadManageNotes === 'function') {
+            loadManageNotes();
+          }
+          
         } else {
           alert(`Ошибка: ${result.error || 'Неизвестная ошибка'}`);
         }
@@ -196,6 +200,88 @@ async function loadNotes() {
     }
 }
 
+async function loadManageNotes() {
+    const notesContainer = document.getElementById('manageNotesList');
+    if (!notesContainer) return;
+    
+    try {
+        notesContainer.innerHTML = '<div class="loading">Загрузка заметок...</div>';
+        
+        const response = await fetch(`${API_BASE_URL}/notes`);
+        const result = await response.json();
+        
+        let notes = [];
+        if (Array.isArray(result)) {
+            notes = result;
+        } else if (result.notes && Array.isArray(result.notes)) {
+            notes = result.notes;
+        }
+        
+        if (notes.length === 0) {
+            notesContainer.innerHTML = '<div class="empty-state">📝 Нет заметок для управления</div>';
+            return;
+        }
+        
+        notesContainer.innerHTML = notes.map((note, index) => {
+            const colorIndex = index % 6;
+            const statusText = note.status === 'active' ? 'Активна' : 'Завершена';
+            const statusClass = note.status === 'active' ? 'active' : 'completed';
+            const formattedDate = note.date ? formatDate(note.date) : 'Дата не указана';
+            
+            return `
+                <div class="note-card color-${colorIndex}" data-id="${note.id}">
+                    <div class="note-status ${statusClass}">${statusText}</div>
+                    <div class="note-title">${escapeHtml(note.title)}</div>
+                    <div class="note-datetime">
+                        ${formattedDate} ${note.time || ''}
+                    </div>
+                    ${note.emailReminder && note.email ? `
+                        <div class="note-email">
+                            ${escapeHtml(note.email)}
+                        </div>
+                    ` : ''}
+                    <button class="delete-btn" onclick="deleteNote('${note.id}')">Удалить</button>
+                </div>
+            `;
+        }).join('');
+        
+    } catch (error) {
+        console.error('Ошибка при загрузке заметок:', error);
+        notesContainer.innerHTML = '<div class="empty-state">❌ Ошибка при загрузке заметок. Проверьте подключение к серверу.</div>';
+    }
+}
+
+async function deleteNote(noteId) {
+    if (!confirm('Вы уверены, что хотите удалить эту заметку?')) {
+        return;
+    }
+    
+    try {
+        const response = await fetch(`${API_BASE_URL}/notes/${noteId}`, {
+            method: 'DELETE'
+        });
+        
+        const result = await response.json();
+        
+        if (response.ok) {
+            alert('Заметка успешно удалена!');
+            
+            if (typeof loadManageNotes === 'function') {
+                loadManageNotes();
+            }
+            
+            if (typeof loadNotes === 'function') {
+                loadNotes();
+            }
+        } else {
+            alert(`Ошибка: ${result.error || 'Не удалось удалить заметку'}`);
+        }
+    } catch (error) {
+        console.error('Ошибка при удалении:', error);
+        alert('Произошла ошибка при удалении заметки');
+    }
+}
+
 function formatDate(dateString) {
     if (!dateString) return 'Дата не указана';
     const date = new Date(dateString);
@@ -215,9 +301,23 @@ function escapeHtml(text) {
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', function() {
     setupNoteModal();
-    loadNotes();
+    
+    if (document.getElementById('notesList')) {
+        loadNotes();
+    }
+    
+    if (document.getElementById('manageNotesList')) {
+        loadManageNotes();
+    }
   });
 } else {
   setupNoteModal();
-  loadNotes();
+  
+  if (document.getElementById('notesList')) {
+      loadNotes();
+  }
+  
+  if (document.getElementById('manageNotesList')) {
+      loadManageNotes();
+  }
 }
