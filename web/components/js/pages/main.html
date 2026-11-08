@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,24 +8,31 @@
 </head>
 <body>
     <div class="page">
-        <div class="header">
-            <a href="/" class="home-link">
-                <h1>NoteLib</h1>
-            </a>
-            <h3>ваш лучший помощник</h3>
-        </div>
-        <div class="content">
-            <div class="buttons">
-                <a id="notesButton" href="/notes.html">СОЗДАТЬ ЗАМЕТКУ</a>
-                <a id="alertButton" href="/notesList.html">НАПОМИНАНИЯ</a>
-                <a id="manageButton" href="/manage.html">УПРАВЛЕНИЕ</a>
+        <header class="header">
+            <div class="brand">
+                <a href="/" class="home-link"><h1>NoteLib</h1></a>
+                <p>ваш лучший помощник</p>
             </div>
-        </div>
+            <div class="auth" role="group" aria-label="Авторизация — скоро появится">
+                <button class="auth-button" type="button" disabled title="Вход будет доступен позже">Войти</button>
+                <button class="auth-button auth-button-primary" type="button" disabled title="Регистрация будет доступна позже">Регистрация</button>
+            </div>
+        </header>
+        <main class="content">
+            <div class="welcome">
+                <p class="eyebrow">Ваше рабочее пространство</p>
+                <h2>Всё важное — под рукой</h2>
+                <p class="intro">Сохраняйте рабочие заметки, следите за напоминаниями<br class="desktop-break"> и управляйте делами в одном месте.</p>
+                <nav class="buttons" aria-label="Основные разделы">
+                    <a id="notesButton" href="/notes.html"><span class="button-icon" aria-hidden="true">＋</span><span>Создать заметку</span><span class="button-arrow" aria-hidden="true">↗</span></a>
+                    <a id="alertButton" href="/notesList.html"><span class="button-icon" aria-hidden="true">◷</span><span>Напоминания</span><span class="button-arrow" aria-hidden="true">↗</span></a>
+                    <a id="manageButton" href="/manage.html"><span class="button-icon" aria-hidden="true">☷</span><span>Управление</span><span class="button-arrow" aria-hidden="true">↗</span></a>
+                </nav>
+            </div>
+        </main>
     </div>
-    <div class="footer">
-        <div class="autor">
-            <h3>Злобин В.Е.</h3>
-        </div>
-    </div>
+    <footer class="footer">
+        <div class="autor"><h3>Злобин В.Е.</h3></div>
+    </footer>
 </body>
 </html>
