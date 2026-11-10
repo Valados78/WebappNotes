@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,20 +8,24 @@
 </head>
 <body>
     <div class="page">
-        <div class="header">
-            <a href="/" class="home-link">
-                <h1>NoteLib</h1>
-            </a>
-            <h3>ваш лучший помощник</h3>
-        </div>
-        <div class="content">
+        <header class="header">
+            <div class="brand">
+                <a href="/" class="home-link"><h1>NoteLib</h1></a>
+                <p>ваш лучший помощник</p>
+            </div>
+            <div class="auth" role="group" aria-label="Авторизация — скоро появится">
+                <button class="auth-button" type="button" disabled title="Вход будет доступен позже">Войти</button>
+                <button class="auth-button auth-button-primary" type="button" disabled title="Регистрация будет доступна позже">Регистрация</button>
+            </div>
+        </header>
+        <main class="content workspace">
             <div class="manage-section">
-                <h2>Управление заметками</h2>
+                <div class="section-heading"><a class="back-link" href="/">← На главную</a><h2>Управление заметками</h2><p>Просматривайте заметки и удаляйте те, которые больше не нужны.</p></div>
                 <div class="notes-grid" id="manageNotesList">
                     <!-- Здесь будут отображаться заметки с кнопками удаления -->
                 </div>
             </div>
-        </div>
+        </main>
         <div class="footer">
             <div class="autor">
                 <h3>Злобин В.Е.</h3>

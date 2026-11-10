@@ -7,20 +7,27 @@
   <link rel="stylesheet" href="style/notes.css">
 </head>
 <body>
-  <div class="container">
-    <header>
-      <a href="/" class="home-link">
-        <h1>NoteLib</h1>
-      </a>
-      <p>Создайте новую заметку</p>
-    </header>
+  <div class="page">
+    <header class="header">
+            <div class="brand">
+                <a href="/" class="home-link"><h1>NoteLib</h1></a>
+                <p>ваш лучший помощник</p>
+            </div>
+            <div class="auth" role="group" aria-label="Авторизация — скоро появится">
+                <button class="auth-button" type="button" disabled title="Вход будет доступен позже">Войти</button>
+                <button class="auth-button auth-button-primary" type="button" disabled title="Регистрация будет доступна позже">Регистрация</button>
+            </div>
+        </header>
+    <main class="content workspace">
+<div class="section-heading"><a class="back-link" href="/">← На главную</a><h2>Создать заметку</h2><p>Запишите важное и выберите удобное время для напоминания.</p></div>
 
     <form class="note-form" id="noteForm">
       <input
         type="text"
         class="note-input"
         id="noteInput"
-        placeholder="О чем напомнить..."
+        placeholder="О чём напомнить…"
+        aria-label="Название заметки"
         autocomplete="off"
         required
       />
@@ -29,10 +36,10 @@
     
     <!-- Модальное окно для создания заметки -->
     <div id="noteModal" class="modal" style="display: none;">
-      <div class="modal-content">
+      <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
         <div class="modal-header">
-          <h2>Создать напоминание</h2>
-          <span class="close">&times;</span>
+          <h2 id="modalTitle">Создать напоминание</h2>
+          <button type="button" class="close" aria-label="Закрыть">&times;</button>
         </div>
         <div class="modal-body">
           <p><strong>Название:</strong> <span id="modalNoteTitle"></span></p>
@@ -74,7 +81,11 @@
         <!-- Здесь будут отображаться заметки -->
       </div>
     </div>
+    </main>
   </div>
-</body>
+<footer class="footer">
+        <div class="autor"><h3>Злобин В.Е.</h3></div>
+    </footer>
 <script src="/app.js"></script>
+</body>
 </html>

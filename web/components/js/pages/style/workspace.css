@@ -1,0 +1,52 @@
+/* Общий стиль внутренних страниц продолжает оформление главной. */
+@import url('main.css');
+
+.content.workspace {
+    display: block;
+    width: 100%;
+    max-width: 1168px;
+    margin: 0 auto;
+    padding: 40px 24px 64px;
+    background: none;
+}
+.section-heading { margin-bottom: 28px; }
+.back-link { display: inline-block; margin-bottom: 24px; color: #535fc0; text-decoration: none; font-size: 14px; }
+.back-link:hover { text-decoration: underline; }
+.section-heading h2 { font-size: clamp(26px, 4vw, 34px); letter-spacing: -0.7px; line-height: 1.25; }
+.section-heading p { margin-top: 12px; color: #66738a; line-height: 1.7; }
+.notes-section > h2 { margin-bottom: 20px; font-size: 22px; }
+.notes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 20px; }
+.note-card {
+    min-width: 0;
+    padding: 24px;
+    background: #fff;
+    border: 1px solid #e0e5f0;
+    border-top: 3px solid #a8b1ed;
+    border-radius: 14px;
+    box-shadow: 0 3px 8px rgba(35, 48, 71, 0.03);
+}
+.note-card.color-1 { border-top-color: #c4afe0; }
+.note-card.color-2 { border-top-color: #9dbfe8; }
+.note-card.color-3 { border-top-color: #99c9b4; }
+.note-card.color-4 { border-top-color: #ddbb93; }
+.note-card.color-5 { border-top-color: #a5b4c9; }
+.note-status { display: table; margin-bottom: 16px; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+.note-status.active { background: #e9f5ef; color: #2e6c4c; }
+.note-status.completed { background: #eef0f5; color: #59657b; }
+.note-title { font-size: 18px; font-weight: 600; line-height: 1.5; margin-bottom: 14px; overflow-wrap: anywhere; }
+.note-datetime { color: #66738a; font-size: 14px; line-height: 1.6; }
+.note-email { color: #66738a; font-size: 13px; margin-top: 16px; padding-top: 14px; border-top: 1px solid #e5eaf2; overflow-wrap: anywhere; }
+.empty-state, .loading { grid-column: 1 / -1; text-align: center; padding: 48px 20px; border: 1px dashed #d5dcec; border-radius: 14px; background: #fff; color: #66738a; line-height: 1.7; }
+button, input { font: inherit; }
+button:focus-visible, input:focus-visible { outline: 3px solid #8893ed; outline-offset: 3px; }
+.btn, .add-btn, .delete-btn { border-radius: 10px; padding: 12px 20px; font-size: 14px; font-weight: 600; cursor: pointer; border: 1px solid transparent; }
+.btn-primary, .add-btn { background: #535fd7; color: #fff; }
+.btn-primary:hover, .add-btn:hover { background: #444fbd; }
+.btn-secondary { background: #eef0f5; color: #526079; border-color: #dce2ee; }
+.btn-secondary:hover { background: #e2e6ef; }
+.delete-btn { display: block; margin: 20px 0 0 auto; background: #fff1f2; color: #a33244; border-color: #f1d4da; padding: 9px 14px; }
+.delete-btn:hover { background: #ffe3e7; }
+@media (max-width: 480px) {
+    .content.workspace { padding: 28px 20px 40px; }
+    .note-card { padding: 20px; }
+}
